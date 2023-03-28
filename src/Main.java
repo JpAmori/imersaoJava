@@ -1,5 +1,7 @@
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URI;
+import java.net.URL;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
@@ -21,17 +23,20 @@ public class Main {
         JsonParser jsonParser =  new JsonParser();
         List<Map<String, String>> moviesList = jsonParser.parse(body);
 
+        var creator = new createStickers();
         // Exibindo os Dados
         for (Map<String, String> movie : moviesList){
+
+            String urlImage = movie.get("image");
+            String title = movie.get("title");
+            String nameFile = "output/" + title + ".png";
+
+            InputStream inputStream = new URL(urlImage).openStream();
+
+            creator.createSticker(inputStream, nameFile);
+
             System.out.println("\u001B[1mTítulo: \u001B[m" + movie.get("title"));
-            System.out.println("\u001B[1mPoster: \u001B[m: " + movie.get("image"));
-            System.out.println("\u001B[1mNotas: \u001B[m " + movie.get(("imDbRating")));
-            float classification = Float.parseFloat(movie.get("imDbRating"));
-            int numStars = (int) classification;
-            for (int n = 1; n <= numStars; n++){
-                System.out.print("\u001B[1m\u2B50");
-            }
-            System.out.println("\n--------------------------------------------------------");
+            System.out.println("--------------------------------------------------------");
         }
     }
 }
