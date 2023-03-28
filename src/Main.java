@@ -12,7 +12,7 @@ public class Main {
     public static void main(String[] args) throws IOException, InterruptedException {
 
         // Criando uma conexão HTTP
-        String Url = "https://raw.githubusercontent.com/alura-cursos/imersao-java-2-api/main/TopMovies.json";
+        String Url = "https://raw.githubusercontent.com/lukadev08/lukadev08.github.io/main/apidata/imdbmostpopularmovies.json";
         URI address = URI.create(Url);
         HttpClient httpClient = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder(address).GET().build();
